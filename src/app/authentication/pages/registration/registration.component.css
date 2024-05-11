@@ -1,0 +1,39 @@
+.center {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .register-card {
+    min-width: 25%;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+  }
+  
+  .button {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .link {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .login-link {
+    text-decoration: none;
+  }
+  
+  mat-card-title {
+      padding-top: 10px;
+      padding-bottom: 5px;
+      text-align: center;
+  }
+  
+  mat-form-field {
+    margin-bottom: -0.9em;
+  }

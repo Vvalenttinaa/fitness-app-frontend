@@ -1,0 +1,45 @@
+.card-image {
+    width: 100%;
+    max-width: 500px;
+    max-height: auto;
+    height: auto;
+   /* margin-left: auto;
+    object-fit: cover;  This ensures the image covers the entire space */
+  }
+
+  .example-card {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+  }
+  
+  .button-container {
+    margin-left: auto; /* Moves the button to the right */
+    border: rgb(86, 86, 243);
+  }
+
+  .center-container {
+    display: flex;
+    align-items: center; 
+    height: calc(100vh + 100px);
+    margin-top: 120px;
+  }
+
+  .container-comments {
+    display: flex;
+    flex-direction: column; /* Adjust flex properties based on layout requirements */
+}
+
+.two-column-container {
+  display: flex; /* Koristi flexbox */
+}
+
+.card-column {
+  flex: 1; /* Rasteže se kako bi popunio dostupan prostor */
+  padding-right: 20px; /* Dodaje razmak sa desne strane */
+}
+
+.comments-column {
+  flex: 1; /* Rasteže se kako bi popunio dostupan prostor */
+  padding-left: 20px; /* Dodaje razmak sa leve strane */
+}

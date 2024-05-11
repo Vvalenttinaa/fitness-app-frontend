@@ -1,0 +1,20 @@
+<div>
+    <h1>Fitness World News</h1>
+  @for (news of newsList; track $index) {
+  <mat-card>
+    <mat-card-actions>
+      <mat-card-header>
+        <mat-card-title>
+          {{ news.title }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ news.category }}</mat-card-subtitle>
+      </mat-card-header>
+      <div class="display">
+      {{ news.description }}
+      <br><br>
+      <p>Click <a href="{{ news.link }}" target="_blank">here</a> for details</p>
+    </div>
+    </mat-card-actions>
+  </mat-card>
+  }
+</div>

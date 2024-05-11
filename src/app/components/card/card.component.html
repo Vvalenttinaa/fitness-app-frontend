@@ -1,0 +1,14 @@
+<mat-card class="example-card">
+  <mat-card-actions (click)="openDetails(fitnessProgram.id)">
+    <mat-card-header>
+      <mat-card-title>
+        @if(myProgram){
+        <button matIcon matSuffix (click)="onDelete($event)"><mat-icon color="warn">delete</mat-icon></button><br><br>
+        }
+        {{fitnessProgram.name}}
+      </mat-card-title>
+      <mat-card-subtitle>{{fitnessProgram.price}} KM</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image class="card-image" src="https://www.verywellfit.com/thmb/iobAbFcFB3bMt9tYpbkuosV3bWw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/562611339-56a173415f9b58b7d0bf634f.jpg" alt="Photo of a Shiba Inu" >
+    </mat-card-actions>
+</mat-card>

@@ -1,0 +1,23 @@
+.example-card {
+  display: flex;
+  width: 100%;
+  margin-bottom: 8px;
+  flex-direction: row-reverse;
+  transition: transform 0.3s ease;
+}
+
+.example-card:hover {
+  transform: scale(1.05);
+}
+
+.card-image {
+  max-width: 50%;
+  height: auto;
+  margin-left: auto;
+}
+
+.card-image:hover {
+  transform: scale(1.05);
+}
+
+ 

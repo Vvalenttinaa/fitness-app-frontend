@@ -1,0 +1,41 @@
+.display{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.message {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .message .username {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .message .content {
+    margin-top: 5px;
+  }
+
+  li {
+    list-style-type: none;
+  }
+
+  .start{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.title{
+    padding: 5px;
+    margin: 5px;
+}
+
+.jc{
+    display: flex;
+    justify-content: space-between;
+}

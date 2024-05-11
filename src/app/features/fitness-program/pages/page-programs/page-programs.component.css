@@ -1,0 +1,40 @@
+.two-column-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .cards-section {
+    width: 100%;
+    padding: 0 10px;
+  }
+  
+  .grid-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(470px, 1fr)); /* Promenite vrednosti po potrebi */
+    gap: 10px; /* Promenite razmak između kartica po potrebi */
+  }
+  
+  .app-card {
+    width: calc(33.33% - 20px); /* Kartice će zauzimati trećinu širine roditeljskog elementa sa razmakom između njih */
+    max-width: 400px; /* Postavite maksimalnu širinu kartica */
+    height: 350px; /* Postavite visinu kartica */
+  }
+  
+  .example-form button {
+    border-bottom: 2px solid rgb(50, 48, 48); /* Postavite samo donju ivicu */
+    border-radius: 0; /* Uklonite zaobljenje ivica */
+    border-top: none; /* Uklonite gornju ivicu */
+    border-left: none; /* Uklonite levu ivicu */
+    border-right: none; /* Uklonite desnu ivicu */
+  }
+    
+  .jc-space-between{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .container-dialog{
+    width: 50%;
+  }

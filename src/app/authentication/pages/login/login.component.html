@@ -1,0 +1,25 @@
+<div class="center">
+    <mat-card class="login-card">
+      <mat-card-title>Login</mat-card-title>
+      <mat-card-content class="login-content">
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <mat-form-field appearance="outline">
+            <mat-label>Username</mat-label>
+            <input type="text" matInput placeholder="Username" formControlName="username" required autofocus />
+          </mat-form-field><br>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput placeholder="Password" formControlName="password" required />
+          </mat-form-field>
+          <br>
+          <div class="link-container">
+            <span class="space"></span>
+            <a [routerLink]="['/registration']" class="link">No Account?&nbsp;<strong>Register</strong></a>
+          </div>
+          <div class="button">
+            <button matButton type="submit" color="primary">Log In</button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>

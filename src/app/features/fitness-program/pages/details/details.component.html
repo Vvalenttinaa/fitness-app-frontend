@@ -1,0 +1,37 @@
+@if(fitnessProgram){
+<div class="two-column-container">
+  <!-- Prva kolona za karticu -->
+  <div class="card-column">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{fitnessProgram.name}}</mat-card-title>
+        <mat-card-subtitle>{{fitnessProgram.categoryName}}</mat-card-subtitle>
+        <mat-card-actions class="button-container">
+          <button mat-flat-button color="primary" (click)="joinProgram()">Join now</button>
+        </mat-card-actions>
+      </mat-card-header>
+      <img mat-card-image class="card-image" src="https://www.fitthai.com/wp-content/uploads/2021/12/3349179-1.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <br>
+        <p>About: {{fitnessProgram.name}}</p>
+        <p>Location: {{fitnessProgram.locationName}}</p>
+        <p>Level: {{fitnessProgram.level}}</p>
+        <p>Duration: {{fitnessProgram.duration}}</p>
+        <p>Instructor: {{fitnessProgram.instructorName}}</p>
+        <p>Contact: {{fitnessProgram.contact}}</p>
+        <div *ngFor="let attribute of fitnessProgram.attributedescriptionsById">
+          <p>{{ attribute.attributeName }}:<p>
+            <ul>{{attribute.description}}</ul>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <!-- Druga kolona za komentare -->
+  <div class="comments-column">
+    <div class="container-comments">
+      <app-comments-component [fitnessProgramId]="fitnessProgram.id"></app-comments-component>
+    </div>
+  </div>
+</div>
+}

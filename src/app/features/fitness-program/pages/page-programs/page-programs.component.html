@@ -1,0 +1,56 @@
+    <div class="two-column-container">
+        <div class="filters-and-search-section">
+            <div class="search-section">
+                <mat-form-field appearance="outline">
+                    <mat-label>Search</mat-label>
+                    <input matInput type="text" placeholder="Search" [formControl]="search" maxlength="100"/>
+                    <button matButton matSuffix [disabled]="isDisabledBtn" (click)="filterData()"><mat-icon>search</mat-icon></button>
+                </mat-form-field>
+                <br>
+            <div class="jc-space-between">
+                <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Category:</mat-label>
+                    <mat-select (selectionChange)="filterData()" [formControl]="category">
+                        <mat-option *ngFor="let category of categoryList" [value]="category.name">
+                            {{ category.name }}
+                          </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Attribute:</mat-label>
+                    <mat-select (selectionChange)="filterData()" id="selectedAttributeId" [formControl]="attribute"> 
+                        <mat-option *ngFor="let attribute of attributeList" [value]="attribute.name">
+                            {{ attribute.name }}
+                          </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Description:</mat-label>
+                    <mat-select (selectionChange)="filterData()"  [formControl]="description">
+                        <mat-option *ngFor="let attributeDescription of attributeDesList" [value]="attributeDescription.description">
+                            {{ attributeDescription.description }}
+                          </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-flat-button matSuffix (click)="deleteFilters()" [disabled]="isDisabledBtn" color="primary">Reload<mat-icon>refresh</mat-icon></button>
+            </div>
+            <div>
+                <button mat-flat-button matSuffix (click)="addProgram()" color="primary">Add program<mat-icon>add</mat-icon></button>
+            </div>
+            </div>
+        </div>
+        <mat-checkbox color="primary" [(ngModel)]="checked" (change)="onChange()">SHOW ONLY MY PROGRAMS</mat-checkbox>
+        </div>
+        <div class="cards-section">
+            <div class="grid-wrapper">
+                @for (program of programsArray; track $index) {
+                    @if(checked){
+                <app-card [fitnessProgram]="program" [myProgram]="true" (deleteProgram)="onDeleteProgram(program)"></app-card>
+                    }@else{
+                        <app-card [fitnessProgram]="program" [myProgram]="false"></app-card>
+                    }
+                }
+            </div>
+        </div>
+    </div>

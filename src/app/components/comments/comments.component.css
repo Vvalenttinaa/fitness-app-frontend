@@ -1,0 +1,59 @@
+.comment {
+    border: 1px solid #ccc; /* Dodaje ivicu komentara */
+    padding: 10px; /* Dodaje prostor oko komentara */
+    margin-bottom: 10px; /* Dodaje razmak između komentara */
+    position: relative;
+  }
+  
+  .comment .username {
+    font-weight: bold; /* Čini korisničko ime boldovanim */
+    color: #333; /* Boja korisničkog imena */
+  }
+  
+  .comment .content {
+    margin-top: 5px; /* Dodaje malo razmaka između korisničkog imena i sadržaja */
+  }
+  
+  /* Stilizacija odgovora */
+  .coment .reply {
+    margin-left: 20px; /* Pomeranje odgovora udesno */
+    padding: 5px; /* Dodaje prostor oko odgovora */
+  }
+
+.comment .add-reply {
+  background-color: transparent; /* Make background transparent */
+  color: #6962cb; /* Set text color */
+  border: none; /* Remove border */
+  margin-left: 20px;
+  padding: 5px;
+}
+
+.comment .add-reply:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Add hover effect */
+}
+  .reply .username {
+    font-weight: bold; 
+    color: #666; 
+  }
+  
+  .reply .content {
+    margin-top: 5px; 
+    color: #666; 
+  }
+  
+  ul {
+    list-style-type: none;
+  }
+
+  .example-form {
+    display: flex;
+    align-items: flex-start; /* Align items at the top */
+  }
+
+  .example-form .mat-form-field {
+    margin-right: 10px; /* Add some spacing between form field and button */
+  }
+
+  .example-form button {
+    height: 55px; /* Set the height to match the form field */
+  }

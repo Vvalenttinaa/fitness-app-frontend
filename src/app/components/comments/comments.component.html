@@ -1,0 +1,34 @@
+<h2>Comments</h2>
+<mat-list role="list">
+    <section>
+        <form class="example-form">
+            <mat-form-field class="example-full-width" style="width: 80%;" appearance="outline">
+              <mat-label>Add comment...</mat-label>
+              <input type="text" matInput placeholder="Add comment..." [formControl]="comment">
+              <mat-icon matSuffix>mode_edit</mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addComment()"
+            ><mat-icon matSuffix>add</mat-icon>
+            </button>
+          </form>
+        </section>
+        @if(comments.length > 0){
+        @for (comment of comments; track $index) {
+        <li mat-list-item class="comment">
+            <span class="username">{{comment.userUsername}} </span>
+            <span class="content">{{comment?.content}}</span><br>
+            <button mat-button class="add-reply" (click)="toggleReplyInput(comment.id)">Reply</button>
+            <div *ngIf="showReplyInput[comment.id]" class="add-reply">
+                <input matInput type="text" [(ngModel)]="replyText[comment.id]" placeholder="Type your reply">
+                <button matButton (click)="submitReply(comment.id)">Reply</button>
+              </div>
+            <ul>
+                <li mat-list-item class="reply" *ngFor="let reply of comment.replies">
+                    <span class="username">{{reply.userUsername}} </span>
+                    <span class="content">{{reply.content}}</span>
+                </li>
+            </ul>
+        </li>
+    }
+    }
+</mat-list>

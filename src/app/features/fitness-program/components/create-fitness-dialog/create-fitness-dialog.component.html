@@ -1,0 +1,125 @@
+<div class="container">
+  <div class="start">
+    <h2 class="title">Create new program</h2>
+    <button mat-icon-button mat-dialog-close aria-label="Close" color="warn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    <form [formGroup]="form" class="container">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Name"
+          required
+          formControlName="Name"
+        />
+        @if (this.form.get('Name')!.hasError('required')){
+        <mat-error>This field is required!</mat-error>
+        } @if( this.form.get('Name')?.hasError('maxlength')){
+        <mat-error>This field contains too long content!</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select
+          [(value)]="selected"
+          (valueChange)="createAttributes()"
+          placeholder="Category"
+          formControlName="Category"
+        >
+          @for (category of categoryList; track $index) {
+          <mat-option [value]="category"> {{ category.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="form.get('Category')?.value?.attributes" formArrayName="attributes">
+        <div *ngFor="let control of attributes.controls; index as i">
+            <mat-checkbox (change)="onCheckboxChange($event, i, control.value.id)" [formControlName]="i">{{control.value.name}} {{control.value.id}}</mat-checkbox>
+        </div>
+      </div>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Description"
+          required
+          formControlName="Description"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Price"
+          required
+          formControlName="Price"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Level</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Level"
+          required
+          formControlName="Level"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Duration</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Duration"
+          required
+          formControlName="Duration"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Contact</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Contact"
+          required
+          formControlName="Contact"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Instructor</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Instructor"
+          required
+          formControlName="Instructor"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Location</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Location"
+          required
+          formControlName="Location"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        (click)="onCreate()"
+        [disabled]="form.invalid"
+        class="btn"
+      >
+        CREATE
+      </button>
+    </form>
+  </mat-dialog-content>
+</div>

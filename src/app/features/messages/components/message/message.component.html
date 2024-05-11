@@ -1,0 +1,47 @@
+<div class="start">
+    <h2 class="title">Messages</h2>
+    <button mat-icon-button mat-dialog-close aria-label="Close" color="warn" (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="display">
+    @if(!clickedNew){
+    <button mat-icon-button matTooltip="Send new message" (click)="clickedNewMess()"><mat-icon color="primary">mail</mat-icon></button>
+    }@else {
+        <button mat-icon-button matTooltip="View all messages" (click)="clickedNewMess()"><mat-icon color="primary">chat</mat-icon></button>
+    }@if(clickedNew){
+    <mat-form-field appearance="outline">
+      <mat-label>Recipient</mat-label>
+      <mat-select formControlName="recipient" (selectionChange)="onRecipientChange($event.value)">
+        @for (rec of recipients; track $index) {
+            <mat-option [value]="rec.id">{{rec.username}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Send new message...</mat-label>
+        <textarea #commentTxt [rows]="1" formControlName="content" cdkTextareaAutosize matInput
+          cdkTextareaAutosize >
+        </textarea>
+    </mat-form-field>
+    @if(messageForm.get('content')?.value && messageForm.get('recipient')?.value){
+    <button mat-raised-button color="primary" type="submit">Send</button><br><br>
+    }
+}
+</form>
+
+<div class="display">
+    @if(!clickedNew){
+    @for (message of messages; track $index) {
+        <li mat-list-item class="message jc">
+        <div>
+            <span class="username">{{message?.sender?.username}} </span>
+            <span class="content">{{message?.content}}</span>
+        </div>
+        <div>
+            <span class="date">{{message.dateAndTime | date:'short'}}</span>
+        </div>
+        </li>
+    }
+}
+</div>
