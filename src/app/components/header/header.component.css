@@ -1,3 +1,20 @@
-.spacer{
+.spacer {
     flex: 1 1 auto;
+}
+
+.menu-button {
+    display: none;
+}
+
+.main-button {
+    display: inline-block;
+}
+
+@media screen and (max-width: 800px) {
+    .menu-button {
+        display: inline-block;
+    }
+    .main-button {
+        display: none;
+    }
 }

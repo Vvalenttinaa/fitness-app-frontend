@@ -1,0 +1,9 @@
+<div *ngIf="exercises.length > 0">
+    <h1>Daily Exercise Suggestions</h1>
+    <div *ngFor="let exercise of exercises" class="exercise-card">
+      <h2>{{ exercise.name }}</h2>
+      <p>{{ exercise.instructions }}</p>
+      <p><strong>Level:</strong> {{ exercise.difficulty }}</p>
+    </div>
+  </div>
+  <!-- <button mat-raised-button (click)="fetchExercises()">Get New Exercises</button> -->

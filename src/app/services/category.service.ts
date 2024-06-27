@@ -25,56 +25,8 @@ export class CategoryService {
     return this.http.get<AttributeDescription[]>(`${apiEndpoint.CategoryEndpoint.getAllAttributeDescriptions}`)
   }
 
+  getAllAttributeDescriptionsByAttributeId(id:number): Observable<AttributeDescription[]>{
+    return this.http.get<AttributeDescription[]>(`${apiEndpoint.CategoryEndpoint.getAllAttributeDescriptionsByAttribute}`+ `/${id}` + `/description`);
+  }
 
-  
-  // categoryList!: Observable<Category[]>;
-
-  // categories: Category[] = [
-  //   {
-  //     id: 1,
-  //     name: 'kardio',
-  //     attributes: [
-  //       {
-  //         id: 1,
-  //         name: 'trcanje',
-  //         categoryId: 1,
-  //         attributeDescription: [
-  //           {
-  //             id: 1,
-  //             description: '100m',
-  //             attributeId: 1
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 2,
-  //     name: 'tezinski',
-  //     attributes: [
-  //       {
-  //         id: 2,
-  //         name: 'teg',
-  //         categoryId: 2,
-  //         attributeDescription: [
-  //           {
-  //             id: 2,
-  //             description: '10kg',
-  //             attributeId: 2
-  //           }
-  //         ]
-  //       }
-  //     ]
-  //   }
-  // ];
-
-  // constructor() { }
-
-  // getAllCategories(): Observable<Category[]> {
-  //   return of(this.categories);
-  // }
-
-  // getCategoryById(id: number): Observable<Category | undefined> {
-  //   return of(this.categories.find(category => category.id === id));
-  // }
 }

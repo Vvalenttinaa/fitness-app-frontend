@@ -83,7 +83,6 @@ export class CommentsComponent implements OnInit {
     this.showReplyInput[commentId] = !this.showReplyInput[commentId];
   }
   
-  // Function to submit reply
   submitReply(commentId: number) {
     const replyText = this.replyText[commentId];
     let reply: ReplyRequest = {

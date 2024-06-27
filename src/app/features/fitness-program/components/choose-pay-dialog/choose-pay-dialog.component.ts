@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Inject, Output, ViewChild, inject } from '@angular/core';
+
+import { Component, EventEmitter, Inject, Output, inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators
@@ -15,19 +15,21 @@ import {
   MatDialogRef
 } from '@angular/material/dialog';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatIcon } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../../services/user.service';
-import StatusRequest from '../../../../model/statusrequest.model';
 import Status from '../../../../model/status.model';
+import StatusRequest from '../../../../model/statusrequest.model';
 import { MessageDialogService } from '../../../../services/message-dialog.service';
-import { MatIcon } from '@angular/material/icon';
+import { UserService } from '../../../../services/user.service';
+import Card from '../../../../model/card.model';
+import { min } from 'rxjs';
 @Component({
   selector: 'app-choose-pay-dialog',
   standalone: true,
-  imports: [MatIcon, MatInputModule, ReactiveFormsModule, FormsModule,MatCardModule, MatRadioModule, MatSelectModule, FormsModule, MatButton, MatFormFieldModule, MatError, MatInputModule],
+  imports: [ReactiveFormsModule, MatIcon, MatInputModule, ReactiveFormsModule, FormsModule,MatCardModule, MatRadioModule, MatSelectModule, FormsModule, MatButton, MatFormFieldModule, MatError, MatInputModule],
   templateUrl: './choose-pay-dialog.component.html',
   styleUrl: './choose-pay-dialog.component.css',
 })
@@ -41,9 +43,9 @@ export class ChoosePayDialogComponent {
   private messageDialogServie = inject(MessageDialogService);
 
   selectedOption: string = '';
-  cardNumber: string = '';
+  // cardNumber: string = '';
   fitnessProgramId!: number;
-  cardNumberFormControl = new FormControl('', Validators.required); 
+  cardNumberFormControl = new FormControl('', [Validators.required, Validators.minLength(12), Validators.maxLength(12)]); 
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,7 +56,7 @@ export class ChoosePayDialogComponent {
 
   onNext() {
     let status: StatusRequest = {
-      userId: 1,
+      userId: Number(localStorage.getItem('userId')),
       programId: this.fitnessProgramId,
       paid: true,
       paymentMethodId:0
@@ -62,12 +64,22 @@ export class ChoosePayDialogComponent {
 
     if(this.selectedOption !== ''){
       if(this.selectedOption === 'card'){
-        if(!this.cardNumber){
+        if(this.cardNumberFormControl.value == null){
           console.log('mark as touched');
+          console.log('cardNumber length je 0');
           this.cardNumberFormControl.markAsTouched();
           return;
-        }else{
-          //TO DO INsert karticu u user
+        }else if(this.cardNumberFormControl != null){
+          let card: Card = {
+            number: this.cardNumberFormControl.value
+          }
+          console.log('Insert card servis');
+          console.log(status.userId, card.number);
+          this.userService.insertCard(status.userId, card).subscribe(response => {
+            console.log('Response:', response);
+          }, error => {
+            console.error('Error:', error);
+          });
           status.paymentMethodId=1;
         }
       }else if(this.selectedOption==='payPal'){
@@ -76,16 +88,16 @@ export class ChoosePayDialogComponent {
         status.paymentMethodId=3;
       }
 
-        this.userService.startProgram(1, status).subscribe({
+        this.userService.startProgram(status.userId, status).subscribe({
           next: (status: Status) => {
-            this.messageDialogServie.showMessageDialog('Registration to program "' + status.programByProgramId.name+ '"', 
+            this.messageDialogServie.showMessageDialog('Registration to program "'+ '"', 
             'Welcome ' + status.userByUserId.firstName + '! \n You are now member of program "' + 
             status.programByProgramId.name + '", lead by instructor ' + status.programByProgramId.instructorName + '.');
           },
           error: (error: any) => {
-            console.log('Error posting comment...');
+            console.log('Error starting program...');
             this.messageDialogServie.showMessageDialog('Registration to program ',
-              'Something went wrong. Please try again or try later.'
+              'Are you already member? Please try again or try later.'
             )
           },
         });

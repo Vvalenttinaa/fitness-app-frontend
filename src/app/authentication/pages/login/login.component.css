@@ -12,7 +12,7 @@
   .login-form {
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 15px;
   }
   
   .button {
@@ -30,7 +30,7 @@
   }
   
   .space{
-    margin: 25px
+    margin: 30px
   }
   
   mat-card-title {

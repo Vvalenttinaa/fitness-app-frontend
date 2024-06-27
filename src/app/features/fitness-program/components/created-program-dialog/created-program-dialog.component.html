@@ -1,0 +1,16 @@
+<div class="container">
+  <p class="title">Fitness program successfully created!<br>Now, you can add an image!</p>
+  <form [formGroup]="form">
+    <app-upload
+      (fileUploaded)="onFileUpload($event)"
+      [uploadedFileData]="uploadedFile"
+      [programId]="programId"
+    ></app-upload>
+    <br />
+    <div class="done">
+      <button mat-raised-button (click)="onDone()" aria-label="Close" color="warn">
+        Done
+      </button>
+    </div>
+  </form>
+</div>

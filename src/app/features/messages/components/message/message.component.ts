@@ -1,30 +1,33 @@
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Component, Inject, OnInit, inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import {MatExpansionModule} from '@angular/material/expansion';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatButton, MatButtonModule } from '@angular/material/button';
-import Message from '../../../../model/message.model';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
-import {MatTooltipModule} from '@angular/material/tooltip';
-import { User } from '../../../../model/user.model';
-import { UserService } from '../../../../services/user.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import MessageRequest from '../../../../model/message-request.model';
-import { CommonModule } from '@angular/common';
+import Message from '../../../../model/message.model';
+import { User } from '../../../../model/user.model';
+import { MessageDialogService } from '../../../../services/message-dialog.service';
+import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-message',
   standalone: true,
-  imports: [CommonModule, MatTooltipModule, MatIcon, MatExpansionModule, MatFormFieldModule, MatSelectModule, MatOptionModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
+  imports: [ JsonPipe, CommonModule, MatTooltipModule, MatIcon, MatExpansionModule, MatFormFieldModule, MatSelectModule, MatOptionModule, ReactiveFormsModule, MatInputModule, MatButtonModule],
   templateUrl: './message.component.html',
   styleUrl: './message.component.css'
 })
 export class MessageComponent implements OnInit {
   clickedNew: boolean = false;
   userService: UserService = inject(UserService);
+  messageService: MessageDialogService = inject(MessageDialogService);
+  dialogRef = inject (MatDialogRef<MessageComponent>);
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,12 +39,6 @@ export class MessageComponent implements OnInit {
   recipients: Array<User> = [];
   messages: Array<Message> = [];
   
-//   messages: Message[] = [
-//     { id: 1, content: 'Prva poruka zovem da ti kazem mendeno moje sanjao sam noca s secne nas dvoje dodji i budi moja', dateAndTime: '2024-05-09 12:00', sender: 'Korisnik1', receiver: 'Korisnik2' },
-//     { id: 2, content: 'Druga poruka', dateAndTime: '2024-05-09 12:05', sender: 'Korisnik2', receiver: 'Korisnik1' },
-//     { id: 3, content: 'Treća poruka', dateAndTime: '2024-05-09 12:10', sender: 'Korisnik3', receiver: 'Korisnik2' }
-// ];
-
   ngOnInit(): void {
     this.messageForm = this.formBuilder.group({
       recipient: ['', Validators.required],
@@ -57,7 +54,7 @@ export class MessageComponent implements OnInit {
       }
     });
 
-    this.userService.getMessages(1).subscribe({
+    this.userService.getMessages(Number(localStorage.getItem('userId'))).subscribe({
       next:(messages: Message[]) => {
         console.log(messages);
         this.messages=messages;
@@ -71,18 +68,22 @@ export class MessageComponent implements OnInit {
   sendMessage(): void {
     let message: MessageRequest = {
       content: this.messageForm.get('content')?.value,
-      senderId: 1,
+      senderId: Number(localStorage.getItem('userId')),
       receiverId: this.messageForm.get('recipient')?.value
     };
 
-    this.userService.sendMessage(1, message).subscribe({
+    this.userService.sendMessage(Number(localStorage.getItem('userId')), message).subscribe({
       next: (message: Message) => {
         console.log('sent' + message);
+        this.messageService.showMessageDialog("Message sent!", "Successfully sent messsage!");        
       },
       error: (error: Error) =>{
         console.log('Error sending message '+ error);
+        this.messageService.showMessageDialog("Message is not sent!", "Unsuccessfully sent messsage!");
+
       }
-    })
+    });
+    this.dialogRef.close();
   }
 
   onClose(){

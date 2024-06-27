@@ -12,5 +12,6 @@ export default interface Status{
     programByProgramId:Program,
     userByUserId:User
     paymentMethodByPaymentMethodId:PaymentMethod,
+    paymentMethodName: string,
     state: String
 }

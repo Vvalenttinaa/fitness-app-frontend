@@ -1,0 +1,31 @@
+.container {
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding: 80px;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold; 
+    text-align: center; 
+    margin-bottom: 20px; 
+  }
+  
+  button {
+    margin-bottom: 10px;
+  }
+  
+  .upload-container {
+    display: flex; 
+    align-items: center; 
+  }
+  
+  .remove-button {
+    margin-left: 10px; 
+  }
+  
+  .done {
+    text-align: center;
+    margin-top: 20px; 
+  }
+  

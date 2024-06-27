@@ -6,18 +6,28 @@
           <mat-form-field appearance="outline">
             <mat-label>Username</mat-label>
             <input type="text" matInput placeholder="Username" formControlName="username" required autofocus />
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')"
+        >Field is required!</mat-error
+      >
+      <br>
           </mat-form-field><br>
           <mat-form-field appearance="outline">
             <mat-label>Password</mat-label>
             <input type="password" matInput placeholder="Password" formControlName="password" required />
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')"
+        >Field is required!</mat-error
+      >
           </mat-form-field>
           <br>
           <div class="link-container">
             <span class="space"></span>
             <a [routerLink]="['/registration']" class="link">No Account?&nbsp;<strong>Register</strong></a>
           </div>
+          @if(mess.length > 0){
+            <mat-error>Wrong credentials!</mat-error>
+          }
           <div class="button">
-            <button matButton type="submit" color="primary">Log In</button>
+            <button mat-raised-button matButton type="submit" color="primary">Log In</button>
           </div>
         </form>
       </mat-card-content>

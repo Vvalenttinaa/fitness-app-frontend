@@ -1,0 +1,16 @@
+<div class="container">
+  @for (category of categories; track $index) {
+  <div class="row">
+    <p class="text">{{ category.name }}</p>
+    <mat-checkbox
+      color="primary"
+      id="category.id"
+      [disabled]="isSubscribed(category.id)"
+      [checked]="isSubscribed(category.id)"
+      (change)="onChecked(category.id, $event)"
+    >
+      Subscribe
+    </mat-checkbox>
+  </div>
+  }
+</div>

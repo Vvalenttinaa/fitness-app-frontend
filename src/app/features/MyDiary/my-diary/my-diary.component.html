@@ -1,0 +1,135 @@
+<div class="container">
+  <div class="button">
+    <button mat-flat-button extended color="primary" (click)="downloadStatistic()">
+      Download diary
+    </button>
+  </div>
+  <form class="form" [formGroup]="statisticForm">
+    <mat-form-field>
+      <mat-label>Description</mat-label>
+      <input
+        matInput
+        type="text"
+        placeholder="Description"
+        formControlName="description"
+      />
+      @if(this.statisticForm.controls['description'].hasError('required')){
+        <mat-error>This field is required!</mat-error>
+      }
+      @if (this.statisticForm.controls['description'].hasError('minLength')) {
+        <mat-error>This field is too short!!</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Duration(minutes)</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Duration"
+        formControlName="duration"
+        required
+        min="1"
+        max="10000"
+      />
+      @if (this.statisticForm.controls['duration'].hasError('required')) {
+        <mat-error>This field is required!</mat-error>
+    } @if (this.statisticForm.controls['duration'].hasError('max')) {
+      <mat-error>This field is too long!</mat-error>
+  }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Intensity(1-5)</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Intensity"
+        formControlName="intensity"
+        required
+        min="1"
+        max="5"
+      />
+      @if (this.statisticForm.controls['intensity'].hasError('required')) {
+        <mat-error>This field is required!</mat-error>
+    } @if (this.statisticForm.controls['intensity'].hasError('max')) {
+      <mat-error>This field is too long!</mat-error>
+  }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Result (KCAL)</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Result"
+        formControlName="result"
+        required
+        min="1"
+        max="3000"
+      />
+      @if (this.statisticForm.controls['result'].hasError('required')) {
+        <mat-error>This field is required!</mat-error>
+    }@if (this.statisticForm.controls['result'].hasError('max')) {
+      <mat-error>This field is too long!</mat-error>
+    }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Weight (KG)</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="Weight"
+        formControlName="weight"
+        required
+        min="1"
+        max="300"
+      />
+      @if (this.statisticForm.controls['weight'].hasError('required')) {
+        <mat-error>This field is required!</mat-error>
+    } @if (this.statisticForm.controls['weight'].hasError('max')) {
+      <mat-error>This field is too long!</mat-error>
+    }
+    </mat-form-field>
+    <div class="button">
+      <button mat-flat-button extended color="primary" (click)="addStatistic()">
+        Add today's result
+      </button>
+    </div>
+  </form>
+</div>
+<div class="table-container">
+  <table mat-table [dataSource]="statistic" class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="result">
+      <th mat-header-cell *matHeaderCellDef>Result</th>
+      <td mat-cell *matCellDef="let element">{{ element.result }} kcal</td>
+    </ng-container>
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef>Weight</th>
+      <td mat-cell *matCellDef="let element">{{ element.weight }} kg</td>
+    </ng-container>
+
+    <ng-container matColumnDef="duration">
+      <th mat-header-cell *matHeaderCellDef>Duration</th>
+      <td mat-cell *matCellDef="let element">{{ element.duration }} min</td>
+    </ng-container>
+
+    <ng-container matColumnDef="intensity">
+      <th mat-header-cell *matHeaderCellDef>Intensity</th>
+      <td mat-cell *matCellDef="let element">{{ element.intensity }} (1-5)</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
+
+<app-weight-chart [data]="chartData"></app-weight-chart>

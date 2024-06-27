@@ -17,3 +17,7 @@
     flex-direction: row;
     justify-content: space-between;
 }
+
+.description{
+    padding-left: 140px;
+}

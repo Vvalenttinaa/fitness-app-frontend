@@ -9,117 +9,129 @@
     <form [formGroup]="form" class="container">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Name"
-          required
-          formControlName="Name"
-        />
-        @if (this.form.get('Name')!.hasError('required')){
-        <mat-error>This field is required!</mat-error>
-        } @if( this.form.get('Name')?.hasError('maxlength')){
-        <mat-error>This field contains too long content!</mat-error>
-        }
+        <input matInput type="text" placeholder="Name" required formControlName="Name" />
+        <mat-error *ngIf="form.get('Name')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Name')?.hasError('maxlength')">This field contains too long content!</mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Category</mat-label>
-        <mat-select
-          [(value)]="selected"
-          (valueChange)="createAttributes()"
-          placeholder="Category"
-          formControlName="Category"
-        >
-          @for (category of categoryList; track $index) {
-          <mat-option [value]="category"> {{ category.name }}</mat-option>
-          }
+        <mat-select [(value)]="selectedCategory" (selectionChange)="createAttributes()" placeholder="Category" formControlName="Category">
+          <mat-option *ngFor="let category of categoryList" [value]="category">{{ category.name }}</mat-option>
         </mat-select>
+        <mat-error *ngIf="form.get('Category')?.hasError('required')">This field is required!</mat-error>
       </mat-form-field>
-      <div *ngIf="form.get('Category')?.value?.attributes" formArrayName="attributes">
-        <div *ngFor="let control of attributes.controls; index as i">
-            <mat-checkbox (change)="onCheckboxChange($event, i, control.value.id)" [formControlName]="i">{{control.value.name}} {{control.value.id}}</mat-checkbox>
+      
+      <div formGroupName="attributes">
+        <div *ngFor="let attribute of selectedCategory?.attributes">
+          <mat-form-field appearance="outline">
+            <mat-label>{{ attribute.name }}</mat-label>
+            <input matInput [formControlName]="attribute.name" placeholder="Enter description">
+          </mat-form-field>
         </div>
       </div>
+
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>Category</mat-label>
+        <mat-select [(value)]="selected" (valueChange)="createAttributes()" placeholder="Category" formControlName="Category">
+          <mat-option *ngFor="let category of categoryList" [value]="category">{{ category.name }}</mat-option>
+        </mat-select>
+      </mat-form-field> -->
+
+      <!-- <ng-container formArrayName="attributes">
+        <div *ngFor="let attributeCtrl of attributes.controls; let i = index">
+          <div [formGroupName]="i">
+
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <input matInput type="text" placeholder="Description" formControlName="{{attributeCtrl}}" />
+            </mat-form-field>
+
+            {{attributes | json}} -->
+
+            <!-- <mat-checkbox color="primary" formControlName="selected">{{ attributesList[i].name }}</mat-checkbox>
+            <button mat-icon-button color="primary" (click)="addAdditionalDescription(i)">
+              <mat-icon>add</mat-icon>
+            </button>
+            <div formArrayName="additionalDescriptions">
+              <div *ngFor="let descCtrl of additionalDescriptions(i).controls; let j = index">
+                <div [formGroupName]="j">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Additional Description {{ j + 1 }}</mat-label>
+                    <input matInput type="text" placeholder="Additional Description" formControlName="description" />
+                  </mat-form-field>
+                  <button mat-icon-button color="warn" (click)="removeAdditionalDescription(i, j)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+            </div> -->
+          <!-- </div>
+        </div>
+      </ng-container> -->
+
       <mat-form-field appearance="outline">
         <mat-label>Description</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Description"
-          required
-          formControlName="Description"
-        />
+        <input matInput type="text" placeholder="Description" required formControlName="Description" />
+        <mat-error *ngIf="form.get('Description')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Description')?.hasError('maxlength')">This field is too long!</mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Price</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Price"
-          required
-          formControlName="Price"
-        />
+        <input matInput type="number" placeholder="Price" required formControlName="Price" />
+        <mat-error *ngIf="form.get('Price')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Price')?.hasError('max')">This field is too big!</mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Level</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Level"
-          required
-          formControlName="Level"
-        />
+        <input matInput type="number" min="1" max="5" placeholder="Level" required formControlName="Level" />
+        <mat-error *ngIf="form.get('Level')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Level')?.hasError('maxlength')">This field is too long!</mat-error>
+        <mat-error *ngIf="form.get('Level')?.hasError('minlength')">This field must be 1 or greater!</mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
-        <mat-label>Duration</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Duration"
-          required
-          formControlName="Duration"
-        />
+        <mat-label>Duration(minutes)</mat-label>
+        <input matInput type="number" placeholder="Duration" required formControlName="Duration" />
+        <mat-error *ngIf="form.get('Duration')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Duration')?.hasError('max')">This field is too big!</mat-error>
+        <mat-error *ngIf="form.get('Duration')?.hasError('min')">This field must be bigger than 1!</mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Contact</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Contact"
-          required
-          formControlName="Contact"
-        />
+        <input matInput type="text" placeholder="Contact" required formControlName="Contact" />
+        <mat-error *ngIf="form.get('Contact')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Contact')?.hasError('maxlength')">This field is too long!</mat-error>
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Instructor</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Instructor"
-          required
-          formControlName="Instructor"
-        />
+        <input matInput type="text" placeholder="Instructor" required formControlName="Instructor" />
+        <mat-error *ngIf="form.get('Instructor')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Instructor')?.hasError('maxlength')">This field is too long!</mat-error>
+    
       </mat-form-field>
+
       <mat-form-field appearance="outline">
         <mat-label>Location</mat-label>
-        <input
-          matInput
-          type="text"
-          placeholder="Location"
-          required
-          formControlName="Location"
-        />
+        <input matInput type="text" placeholder="Location" required formControlName="Location" />
+        <mat-error *ngIf="form.get('Location')?.hasError('required')">This field is required!</mat-error>
+        <mat-error *ngIf="form.get('Location')?.hasError('maxlength')">This field is too long!</mat-error>
       </mat-form-field>
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        (click)="onCreate()"
-        [disabled]="form.invalid"
-        class="btn"
-      >
-        CREATE
-      </button>
+
+      <div class="field-wrappers" formArrayName="documentIds">
+        <div *ngFor="let ctrl of documentIds.controls; let idx = index" [formGroupName]="idx">
+          <app-upload (fileUploaded)="onFileUpload($event, idx)" [uploadedFileData]="uploadedFiles.get(ctrl.value)"></app-upload>
+          <button mat-icon-button (click)="removeDocument(idx)">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit" (click)="onCreate()">CREATE</button>
     </form>
   </mat-dialog-content>
 </div>

@@ -1,8 +1,78 @@
 <mat-toolbar color="primary">
-    <span>FITNESS APP</span>
-    <div class="spacer"></div>
-    <button mat-button (click)="onPrograms()" >Programs</button>
-    <button mat-button (click)="onLogin()">Login</button>
-    <button mat-button (click)="onRegister()">Registration</button>
-    <button mat-button (click)="openMessages()">Messages</button>
+  <span>FITNESS APP</span>
+  <div class="spacer"></div>
+
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu"
+    class="menu-button"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onPrograms()">
+      <span>Programs</span>
+    </button>
+    <button mat-menu-item (click)="onNews()">
+      <span>News</span>
+    </button>
+    @if(loggedIn){
+    <button mat-menu-item (click)="openMessages()">
+      <span>Messages</span>
+    </button>
+    <button mat-menu-item (click)="openSubscriptions()">
+      <span>Subscriptions</span>
+    </button>
+    <button mat-menu-item (click)="openMyDiary()">
+      <span>My Diary</span>
+    </button>
+    <button mat-menu-item (click)="openSuggestions()">
+      <span>Suggestions</span>
+    </button>
+    <button mat-menu-item (click)="openMyProfile()">
+      <span>My Profile</span>
+    </button>
+    <button mat-menu-item (click)="logout()">
+        <span>Logout</span>
+    </button>
+    }@else{
+    <button mat-menu-item (click)="onLogin()">
+      <span>Login</span>
+    </button>
+    <button mat-menu-item (click)="onRegister()">
+      <span>Registration</span>
+    </button>
+}
+  </mat-menu>
+
+  <button mat-button (click)="onPrograms()" class="main-button">
+    Programs
+  </button>
+  <button mat-button (click)="onNews()" class="main-button">
+    News
+  </button>
+  @if(loggedIn){
+  <button mat-button (click)="openMessages()" class="main-button">
+    Messages
+  </button>
+  <button mat-button (click)="openSubscriptions()" class="main-button">
+    Subscriptions
+  </button>
+  <button mat-button (click)="openMyDiary()" class="main-button">
+    My Diary
+  </button>
+  <button mat-button (click)="openSuggestions()" class="main-button">
+    Suggestions
+  </button>
+  <button mat-button (click)="openMyProfile()" class="main-button">
+    My Profile
+  </button>
+  <button mat-button (click)="logout()" class="main-button">Logout</button>
+  }@else{
+  <button mat-button (click)="onLogin()" class="main-button">Login</button>
+  <button mat-button (click)="onRegister()" class="main-button">
+    Registration
+  </button>
+  }
 </mat-toolbar>

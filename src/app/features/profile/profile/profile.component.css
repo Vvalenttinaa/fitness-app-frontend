@@ -1,0 +1,91 @@
+.container{
+    padding: 20px;
+    margin: 20px;
+}
+
+.program-card{
+  width: 80%;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 20px;
+  box-sizing: border-box;
+}
+
+.program-card h2 {
+    margin-top: 0;
+    font-size: 24px;
+    color: #333333;
+  }
+  
+  .program-card p {
+    font-size: 20px;
+    font-weight: 300;
+    color: #666666;
+    line-height: 1.6;
+    margin: 40px;
+  }
+
+  .value{
+    color: #2e0c66;
+    display: inline-block;
+  }
+
+  .container-main{
+    display: flex;
+    flex-direction: row;
+    margin-left: 20px;
+  }
+
+  .card-image {
+    max-width: 300px;
+    height: auto;
+    margin-right: auto;
+    padding-right: 50px;
+  }
+
+  .edit-btn{
+    margin-right: 50px;
+  }
+
+  .container-mini{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .file-upload input {
+    margin-bottom: 10px;
+  }
+
+@media screen and (max-width:600px) {
+  .container-main{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+  }
+
+  .program-card p {
+    font-size: 12px;
+    font-weight: 300;
+    color: #666666;
+    line-height: 1.6;
+    margin: 40px;
+  }
+
+  .program-card{
+    width: 95%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    margin: 5px;
+    box-sizing: border-box;
+  }
+}

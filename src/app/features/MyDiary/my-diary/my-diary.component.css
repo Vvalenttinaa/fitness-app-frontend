@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    max-width: 600px;
+    width: 100%; 
+    box-sizing: border-box; 
+  }
+  
+  .button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+
+  .card{
+    width: 300px;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .card-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }

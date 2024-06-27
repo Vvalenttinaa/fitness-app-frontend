@@ -1,9 +1,9 @@
-.two-column-container {
+/* .two-column-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
     width: 100%;
-  }
+  } */
   
   .cards-section {
     width: 100%;
@@ -12,22 +12,22 @@
   
   .grid-wrapper {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(470px, 1fr)); /* Promenite vrednosti po potrebi */
-    gap: 10px; /* Promenite razmak između kartica po potrebi */
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); 
+    gap: 10px; 
   }
   
   .app-card {
-    width: calc(33.33% - 20px); /* Kartice će zauzimati trećinu širine roditeljskog elementa sa razmakom između njih */
-    max-width: 400px; /* Postavite maksimalnu širinu kartica */
-    height: 350px; /* Postavite visinu kartica */
+    width: calc(33.33% - 20px);
+    max-width: 400px; 
+    height: 350px; 
   }
   
   .example-form button {
-    border-bottom: 2px solid rgb(50, 48, 48); /* Postavite samo donju ivicu */
-    border-radius: 0; /* Uklonite zaobljenje ivica */
-    border-top: none; /* Uklonite gornju ivicu */
-    border-left: none; /* Uklonite levu ivicu */
-    border-right: none; /* Uklonite desnu ivicu */
+    border-bottom: 2px solid rgb(50, 48, 48); 
+    border-radius: 0; 
+    border-top: none; 
+    border-left: none; 
+    border-right: none;
   }
     
   .jc-space-between{
@@ -38,3 +38,59 @@
   .container-dialog{
     width: 50%;
   }
+
+  .cdk-overlay-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+@media screen and (max-width: 667px) {
+  .cdk-overlay-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .search-section mat-form-field {
+    width: 80%;
+  }
+
+  .search-section input[matInput] {
+    width: calc(80% - 48px);
+  }
+
+  .search-section button[matButton] {
+    width: 48px; 
+    padding: 0; 
+  }
+
+  .search-section .jc-space-between {
+    flex-direction: column;
+  }
+
+  .filters-and-search-section mat-form-field {
+    width: 100%;
+  }
+
+  .filters-and-search-section button[mat-flat-button] {
+    width: 100%; 
+  }
+
+  .filters-and-search-section mat-checkbox {
+    width: 100%; 
+    display: flex; 
+    justify-content: center;
+  }
+  .app-card {
+   
+    max-width: 100%; 
+    height: auto; 
+  }
+}

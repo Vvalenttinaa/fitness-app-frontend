@@ -20,4 +20,23 @@
   transform: scale(1.05);
 }
 
+.display{
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 600px){
+  .example-card {
+    width: calc(100% - 20px);
+    max-width: 350px;
+    height: auto; 
+    flex-direction: column;
+  }
+
+  .card-image {
+    max-width: 50%;
+    margin-left: 0;
+  }
+}
+
  

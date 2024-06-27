@@ -6,24 +6,35 @@
 </div>
 <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="display">
     @if(!clickedNew){
-    <button mat-icon-button matTooltip="Send new message" (click)="clickedNewMess()"><mat-icon color="primary">mail</mat-icon></button>
+    <button mat-flat-button matTooltip="Send new message" (click)="clickedNewMess()" color="primary">Send new message<mat-icon>mail</mat-icon></button>
     }@else {
-        <button mat-icon-button matTooltip="View all messages" (click)="clickedNewMess()"><mat-icon color="primary">chat</mat-icon></button>
+        <button mat-flat-button matTooltip="View all messages" (click)="clickedNewMess()" color="primary">View all messages<mat-icon>chat</mat-icon></button>
     }@if(clickedNew){
     <mat-form-field appearance="outline">
       <mat-label>Recipient</mat-label>
       <mat-select formControlName="recipient" (selectionChange)="onRecipientChange($event.value)">
+        <mat-option [value]="-1">Advicer</mat-option>
         @for (rec of recipients; track $index) {
             <mat-option [value]="rec.id">{{rec.username}}</mat-option>
         }
       </mat-select>
+      <mat-error *ngIf="messageForm.get('recipient')?.hasError('required')"
+        >Field is required!</mat-error
+      >
     </mat-form-field>
     <mat-form-field appearance="outline">
         <mat-label>Send new message...</mat-label>
         <textarea #commentTxt [rows]="1" formControlName="content" cdkTextareaAutosize matInput
           cdkTextareaAutosize >
         </textarea>
+        <mat-error *ngIf="messageForm.get('content')?.hasError('maxlength')"
+        >Message is too long!</mat-error
+      >
+      <mat-error *ngIf="messageForm.get('content')?.hasError('required')"
+        >Content is required!</mat-error
+      >
     </mat-form-field>
+    <!-- {{messageForm.get('recipient')?.value}} -->
     @if(messageForm.get('content')?.value && messageForm.get('recipient')?.value){
     <button mat-raised-button color="primary" type="submit">Send</button><br><br>
     }

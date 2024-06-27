@@ -1,29 +1,54 @@
 <mat-card class="container">
-    <mat-card-header>
-      <mat-card-title>Payment methods</mat-card-title>
-      <mat-card-subtitle>Please choose one!</mat-card-subtitle>
-      <br><br>
-    </mat-card-header>
-    <mat-card-actions>
-        <div class="display">
-            <mat-radio-group [(ngModel)]="selectedOption" class="display" color="primary">
-              <mat-radio-button value="card">Card</mat-radio-button>
-              <mat-radio-button value="payPal">PayPal</mat-radio-button>
-              <mat-radio-button value="personal">Personal on location</mat-radio-button>
-            </mat-radio-group>
-            @if (selectedOption === 'card') {
-            <mat-form-field appearance="outline">
-                <input matInput placeholder="Card Number" [formControl]="cardNumberFormControl" required >
-                @if("!cardNumber"){
-                    <mat-error>Card number is required!</mat-error>
-                }
-            </mat-form-field>
-              }
-            <br>
-            <div class="btns">
-                <button mat-flat-button color="primary" class="btn" (click)="onNext()">NEXT</button>
-                <button mat-flat-button color="warn" class="btn" (click)="onCancel()">CANCEL</button>
-            </div>
-        </div>
-    </mat-card-actions>
+  <mat-card-header>
+    <mat-card-title>Payment methods</mat-card-title>
+    <mat-card-subtitle>Please choose one!</mat-card-subtitle>
+    <br /><br />
+  </mat-card-header>
+  <mat-card-actions>
+    <div class="display">
+      <mat-radio-group
+        [(ngModel)]="selectedOption"
+        class="display"
+        color="primary"
+      >
+        <mat-radio-button value="card">Card</mat-radio-button>
+        <mat-radio-button value="payPal">PayPal</mat-radio-button>
+        <mat-radio-button value="personal"
+          >Personal on location</mat-radio-button
+        >
+      </mat-radio-group>
+      @if (selectedOption === 'card') {
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          placeholder="Card Number"
+          [formControl]="cardNumberFormControl"
+          required
+        />
+        @if (this.cardNumberFormControl.hasError('required')) {
+        <mat-error>Field is required!!</mat-error>
+        } @if (this.cardNumberFormControl.hasError('minLength')) {
+        <mat-error>Number is too short!</mat-error>
+        } @if(this.cardNumberFormControl.hasError('maxLength')){
+        <mat-error>Number is too long!</mat-error>
+        }
+      </mat-form-field>
+      }
+      <br />
+      <div class="btns">
+        <button
+          mat-flat-button
+          color="primary"
+          class="btn"
+          (click)="onNext()"
+          [disabled]="
+            selectedOption === 'card' && cardNumberFormControl.invalid
+          "
+        >NEXT</button>
+        <button mat-flat-button color="warn" class="btn" (click)="onCancel()">
+          CANCEL
+        </button>
+      </div>
+    </div>
+  </mat-card-actions>
 </mat-card>

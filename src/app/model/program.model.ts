@@ -1,4 +1,4 @@
-import { Image } from "./image.model";
+import { Image }  from "./image.model";
 import { Attribute } from "./attribute.model";
 import { AttributeDescription } from "./attributedescription.model";
 
